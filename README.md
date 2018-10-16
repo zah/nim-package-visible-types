@@ -28,7 +28,7 @@ packageTypes:
       discovery: DiscoveryProtocol
       peerPool*: PeerPool
 
-    Peer = ref object
+    Peer* = ref object
       transport: StreamTransport
       dispatcher: Dispatcher
       lastReqId*: int
