@@ -12,7 +12,7 @@ iterator recordFields(typeDef: NimNode): (NimNode, NimNode) =
   if typeDef.len > 0:
     var traversalStack = @[(typeDef, 0)]
     while true:
-      assert traversalStack.len > 0
+      doAssert traversalStack.len > 0
 
       let (typeDef, idx) = traversalStack[^1]
       let n = typeDef[idx]
@@ -31,12 +31,12 @@ iterator recordFields(typeDef: NimNode): (NimNode, NimNode) =
           of nnkElse:
             traversalStack.add (branch[0], 0)
           else:
-            assert false
+            doAssert false
 
         continue
 
       of nnkRecCase:
-        assert n.len > 0
+        doAssert n.len > 0
         for i in countdown(n.len - 1, 1):
           let branch = n[i]
           case branch.kind
@@ -45,7 +45,7 @@ iterator recordFields(typeDef: NimNode): (NimNode, NimNode) =
           of nnkElse:
             traversalStack.add (branch[0], 0)
           else:
-            assert false
+            doAssert false
 
         traversalStack.add (newTree(nnkRecCase, n[0]), 0)
         continue
@@ -59,7 +59,7 @@ iterator recordFields(typeDef: NimNode): (NimNode, NimNode) =
         discard
 
       else:
-        assert false
+        doAssert false
 
       if traversalStack.len == 0: break
 
